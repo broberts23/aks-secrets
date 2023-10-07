@@ -1,0 +1,17 @@
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: azure-kvname-user-msi
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "true"          # Set to true for using managed identity
+    userAssignedIdentityID: d7015226-edc3-4e47-bd66-31170c8547f1   # Set the clientID of the user-assigned managed identity to use
+    keyvaultName: myKeyVault577        # Set to the name of your key vault
+    objects:  |
+      array:
+        - |
+          objectName: ExampleSecret
+          objectType: secret              # object types: secret, key, or cert
+    tenantId: placeholder                # The tenant ID of the key vault
